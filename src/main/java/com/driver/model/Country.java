@@ -13,6 +13,16 @@ public class Country {
 
     CountryName countryName;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    private String code;
+
     @OneToOne
     @JoinColumn
     private User user;
