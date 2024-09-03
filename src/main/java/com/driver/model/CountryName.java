@@ -1,5 +1,8 @@
 package com.driver.model;
 
+import java.util.*;
+import java.lang.Enum;
+
 public enum CountryName {
     IND("001"),
     USA("002"),
@@ -15,5 +18,10 @@ public enum CountryName {
 
     public String toCode() {
         return this.code;
+    }
+
+    public static Optional<CountryName> byNameIgnoreCase(String givenName) {
+        return Arrays.stream(values()).filter(it -> it.name().equalsIgnoreCase(givenName)).findAny();
+
     }
 }
