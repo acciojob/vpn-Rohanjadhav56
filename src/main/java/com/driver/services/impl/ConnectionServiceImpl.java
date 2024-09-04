@@ -56,7 +56,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             }
             if(serviceProvider != null) break;
         }
-        if(serviceProvider==null) throw new Exception("Unable to connect");
+        //if(serviceProvider==null) throw new Exception("Unable to connect");
 
 
         Connection connection = new Connection();
