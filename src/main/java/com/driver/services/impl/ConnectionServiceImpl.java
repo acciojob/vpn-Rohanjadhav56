@@ -60,7 +60,7 @@ public class ConnectionServiceImpl implements ConnectionService {
            }
        }
 
-       if(id==Integer.MAX_VALUE) throw new Exception("Unable to connect");
+       //if(id==Integer.MAX_VALUE) throw new Exception("Unable to connect");
 
         Connection connection = new Connection();
         connection.setUser(user);
@@ -73,11 +73,9 @@ public class ConnectionServiceImpl implements ConnectionService {
         user.getConnectionList().add(connection);
 
 
-        serviceProvider.getUsers().add(user);
-        serviceProvider.getConnectionList().add(connection);
         connectionRepository2.save(connection);
         userRepository2.save(user);
-        serviceProviderRepository2.save(serviceProvider);
+
 
 
 
