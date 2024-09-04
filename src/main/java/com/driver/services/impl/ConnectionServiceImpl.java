@@ -23,8 +23,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Autowired
     ConnectionRepository connectionRepository2;
 
-    @Autowired
-    CountryRepository countryRepository;
+
 
     @Override
     public User connect(int userId, String countryName) throws Exception{
@@ -66,13 +65,13 @@ public class ConnectionServiceImpl implements ConnectionService {
         connectionRepository2.save(connection);
         user.setConnected(true);
         user.getServiceProviderList().add(serviceProvider);
-        user.setMaskedIp(countryName2.toCode()+"."+serviceProvider.getId()+"."+userId);
+        user.setMaskedIp(countryName2.toCode()+"."+ connection.getServiceProvider().getId()+"."+userId);
         user.getConnectionList().add(connection);
        userRepository2.save(user);
 
-        serviceProvider.getUsers().add(user);
-        serviceProvider.getConnectionList().add(connection);
-        serviceProviderRepository2.save(serviceProvider);
+        connection.getServiceProvider().getUsers().add(user);
+        connection.getServiceProvider().getConnectionList().add(connection);
+        serviceProviderRepository2.save(connection.getServiceProvider());
 
 
 
