@@ -105,9 +105,9 @@ public class ConnectionServiceImpl implements ConnectionService {
         user.setMaskedIp(null);
         user.setConnected(false);
         user.setConnectionList(new ArrayList<>());
+        userRepository2.save(user);
 
-
-        return userRepository2.save(user);
+        return user;
 
     }
     @Override
