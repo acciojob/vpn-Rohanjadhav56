@@ -63,14 +63,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User subscribe(Integer userId, Integer serviceProviderId) {
       Optional<User> optionalUser = userRepository3.findById(userId);
+      if (!optionalUser.isPresent()) return null;
       User user = optionalUser.get();
 
       Optional<ServiceProvider> optionalServiceProvider = serviceProviderRepository3.findById(serviceProviderId);
+      if(!optionalServiceProvider.isPresent()) return user;
       ServiceProvider serviceProvider = optionalServiceProvider.get();
 
       serviceProvider.getUsers().add(user);
-      ServiceProvider provider = serviceProviderRepository3.save(serviceProvider);
-      user.getServiceProviderList().add(provider);
+      user.getServiceProviderList().add(serviceProvider);
 
       return  userRepository3.save(user);
 
