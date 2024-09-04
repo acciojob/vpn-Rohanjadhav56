@@ -39,10 +39,12 @@ public class ConnectionServiceImpl implements ConnectionService {
         CountryName countryName2 = countryName1.get();
         if (countryName2.equals(user.getOriginalCountry())) return user;
         List<ServiceProvider> serviceProviders = serviceProviderRepository2.findAll();
+        if(serviceProviders.size()==0) throw new Exception("Unable to connect");
         ServiceProvider serviceProvider = null;
         Country country1 = null;
         for (ServiceProvider s : serviceProviders)
         {
+            if(s.getCountryList().size()==0) continue;
             for (Country country : s.getCountryList())
             {
                 if(country.getCountryName().equals(countryName2))
@@ -88,12 +90,14 @@ public class ConnectionServiceImpl implements ConnectionService {
         if(!user.getConnected()) throw  new Exception("Already disconnected");
 
         List<ServiceProvider> serviceProviders = user.getServiceProviderList();
+        if(serviceProviders==null) throw  new Exception("Already disconnected");
         for (ServiceProvider s : serviceProviders)
         {
             s.getUsers().remove(user);
         }
 
         List<Connection> connections = user.getConnectionList();
+        if(connections==null) throw  new Exception("Already disconnected");
         for (Connection c : connections)
         {
             c.setUser(null);
