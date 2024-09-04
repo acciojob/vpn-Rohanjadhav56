@@ -66,16 +66,18 @@ public class ConnectionServiceImpl implements ConnectionService {
         connection.setUser(user);
         connection.setServiceProvider(serviceProvider);
 
-        connectionRepository2.save(connection);
+
         user.setConnected(true);
         user.getServiceProviderList().add(serviceProvider);
         user.setMaskedIp(countryName2.toCode()+"."+ id +"."+userId);
         user.getConnectionList().add(connection);
-       userRepository2.save(user);
 
-        connection.getServiceProvider().getUsers().add(user);
-        connection.getServiceProvider().getConnectionList().add(connection);
-        serviceProviderRepository2.save(connection.getServiceProvider());
+
+        serviceProvider.getUsers().add(user);
+        serviceProvider.getConnectionList().add(connection);
+        connectionRepository2.save(connection);
+        userRepository2.save(user);
+        serviceProviderRepository2.save(serviceProvider);
 
 
 
@@ -91,15 +93,8 @@ public class ConnectionServiceImpl implements ConnectionService {
         User user = optionalUser.get();
         if(!user.getConnected()) throw  new Exception("Already disconnected");
 
-        List<ServiceProvider> serviceProviders = user.getServiceProviderList();
-        if(serviceProviders==null) throw  new Exception("Already disconnected");
-        for (ServiceProvider s : serviceProviders)
-        {
-            s.getUsers().remove(user);
-        }
-
         List<Connection> connections = user.getConnectionList();
-        if(connections==null) throw  new Exception("Already disconnected");
+        if(connections==null) return  user;
         for (Connection c : connections)
         {
             c.setUser(null);
