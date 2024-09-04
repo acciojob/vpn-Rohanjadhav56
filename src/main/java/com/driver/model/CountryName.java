@@ -24,4 +24,8 @@ public enum CountryName {
         return Arrays.stream(values()).filter(it -> it.name().equalsIgnoreCase(givenName)).findAny();
 
     }
+
+    public static Optional<CountryName> byFullNameIgnoreCase(String givenFullName) {
+        return Arrays.stream(values()).filter(it -> it.code.equalsIgnoreCase(givenFullName)).findAny();
+    }
 }
