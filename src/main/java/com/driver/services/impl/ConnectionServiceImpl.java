@@ -129,6 +129,7 @@ public class ConnectionServiceImpl implements ConnectionService {
        else {
           String maskIp = receiver.getMaskedIp();
           String []arr = maskIp.split(".");
+          if(arr.length==0)  throw new Exception("Cannot establish communication");
           String countryCode = arr[0];
 
           Optional<CountryName> optionalCountryName = CountryName.byFullNameIgnoreCase(countryCode);
