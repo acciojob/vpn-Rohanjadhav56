@@ -67,15 +67,15 @@ public class ConnectionServiceImpl implements ConnectionService {
         Connection connection = new Connection();
         connection.setUser(user);
         connection.setServiceProvider(serviceProvider);
+        connectionRepository2.save(connection);
 
 
         user.setConnected(true);
-        user.getServiceProviderList().add(serviceProvider);
         user.setMaskedIp(countryName2.toCode()+"."+ id +"."+userId);
         user.getConnectionList().add(connection);
 
-
-        connectionRepository2.save(connection);
+        serviceProvider.getConnectionList().add(connection);
+        serviceProviderRepository2.save(serviceProvider);
         userRepository2.save(user);
 
 
